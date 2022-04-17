@@ -16,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 @Client(id = "identity")
 public interface IdentityClient {
+
     @SingleResult
     @Post(uri = "/api/token")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON})

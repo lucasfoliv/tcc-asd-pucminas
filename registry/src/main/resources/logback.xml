@@ -35,8 +35,8 @@
 
   <logger name="io.micronaut.context.condition" level="ERROR"/>
   <logger name="io.micronaut.data.query" level="ERROR"/>
-  <logger name="io.micronaut.http.client" level="TRACE"/>
-  <logger name="io.micronaut.security" level="TRACE"/>
+  <logger name="io.micronaut.http.client" level="ERROR"/>
+  <logger name="io.micronaut.security" level="ERROR"/>
 
   <root level="${logLevel}">
     <appender-ref ref="CONSOLE"/>
