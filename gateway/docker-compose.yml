@@ -1,0 +1,29 @@
+version: "3.9"
+
+networks:
+  gisa:
+    name: gisa
+    external: true
+
+services:
+  gateway:
+    image: gateway:latest
+    container_name: gateway
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    networks:
+      gisa:
+        ipv4_address: 172.1.0.4
+    environment:
+      JWT_SIGNATURE_SECRET: ${JWT_SIGNATURE_SECRET}
+      IDENTITY_SRV_URL: ${IDENTITY_SRV_URL}
+      RECEIVER_SRV_URL: ${RECEIVER_SRV_URL}
+      REGISTRY_SRV_URL: ${REGISTRY_SRV_URL}
+      SERVER_PORT: ${SERVER_PORT}
+      LOG_LEVEL: ${LOG_LEVEL}
+    logging:
+      driver: json-file

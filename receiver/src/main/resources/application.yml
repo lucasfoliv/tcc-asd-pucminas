@@ -1,0 +1,47 @@
+micronaut:
+  application:
+    name: receiver
+  executors:
+    io:
+      type: fixed
+      n-threads: 5
+  security:
+    endpoints:
+      login:
+        enabled: false
+      logout:
+        enabled: false
+    token:
+      jwt:
+        signatures:
+          secret:
+            validation:
+              secret: ${JWT_SIGNATURE_SECRET}
+  server:
+    context-path: /receiver/api
+    port: ${SERVER_PORT}
+kafka:
+  bootstrap:
+    servers: ${KAFKA_HOST}:${KAFKA_PORT}
+  health-timeout: 30s
+netty:
+  default:
+    allocator:
+      max-order: 3
+jackson:
+  bean-introspection-module: true
+  property-naming-strategy: LOWER_CAMEL_CASE
+  date-format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+  time-zone: "America/Sao_Paulo"
+  locale: pt_BR
+  deserialization:
+    failOnNumbersForEnums: true
+    failOnUnknownProperties: true
+  serialization:
+    writeDatesAsTimestamps: false
+    closeCloseable: true
+    indentOutput: true
+app:
+  messaging:
+    topics:
+      medical-records: medical_records.messages

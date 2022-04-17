@@ -1,0 +1,27 @@
+version: "3.9"
+
+networks:
+  gisa:
+    name: gisa
+    external: true
+
+services:
+  middleware:
+    image: middleware:latest
+    container_name: middleware
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8080"
+    networks:
+      gisa:
+        ipv4_address: 172.1.0.7
+    environment:
+      MCD_MESSAGE_BROKER_HOST: ${MCD_MESSAGE_BROKER_HOST}
+      MCD_MESSAGE_BROKER_PORT: ${MCD_MESSAGE_BROKER_PORT}
+      SERVER_PORT: ${SERVER_PORT}
+      LOG_LEVEL: ${LOG_LEVEL}
+    logging:
+      driver: json-file

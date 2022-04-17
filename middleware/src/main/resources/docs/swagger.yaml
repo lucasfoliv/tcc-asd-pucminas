@@ -1,0 +1,32 @@
+openapi: 3.0.3
+info:
+  title: Boa Saúde - Sistema de Gestão Integral da Saúde do Associado
+  description: Middleware de Integração
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+  - url: '/integrations/api'
+paths:
+  /mcd/receivers:
+    post:
+      tags:
+        - Integração com o Módulo de Ciência de Dados
+      summary: Enviar dados de prontuário médico
+      description: Retorna OK em caso de sucesso
+      operationId: sendMedicalRecord
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+        required: true
+      responses:
+        "202":
+          description: Requisição aceita
+        "400":
+          description: Requisição inválida
+        "500":
+          description: Erro interno no servidor

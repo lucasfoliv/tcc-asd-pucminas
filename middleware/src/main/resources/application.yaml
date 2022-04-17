@@ -1,0 +1,20 @@
+quarkus:
+  kafka:
+    devservices:
+      enabled: false
+app:
+  server:
+    context-path: /integrations
+    port: ${SERVER_PORT}
+  routes:
+    mcd:
+      messaging:
+        route-id: McdMessageBroker
+        broker:
+          host: ${MCD_MESSAGE_BROKER_HOST}
+          port: ${MCD_MESSAGE_BROKER_PORT}
+        topic: medical_records.messages
+    mit:
+      api:
+        route-id: MitDataScienceReceiverApi
+        path: /api/mcd/receivers

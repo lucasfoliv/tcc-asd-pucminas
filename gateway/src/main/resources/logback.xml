@@ -1,0 +1,48 @@
+<configuration>
+    <property name="logDir" value="${LOG_DIR:-./logs}"/>
+    <property name="logLevel" value="${LOG_LEVEL:-ERROR}"/>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>%cyan(%d{ISO8601}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logDir}/application.log</file>
+        <immediateFlush>true</immediateFlush>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logDir}/application-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>1MB</maxFileSize>
+            <totalSizeCap>5MB</totalSizeCap>
+            <maxHistory>1</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>"[%d{ISO8601}] [%-5level] [%thread] [%logger{72}] - %msg%n"</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROLLING_FILE_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>true</neverBlock>
+
+        <appender-ref ref="ROLLING_FILE"/>
+    </appender>
+
+    <logger name="io.micronaut.context.condition" level="ERROR"/>
+    <logger name="io.micronaut.http.client" level="TRACE"/>
+    <logger name="io.micronaut.security" level="TRACE"/>
+
+    <root level="${logLevel}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ROLLING_FILE_ASYNC"/>
+    </root>
+</configuration>

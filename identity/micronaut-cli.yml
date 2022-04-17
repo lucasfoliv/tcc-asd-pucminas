@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: br.pucminas.gisa.identity
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [ annotation-api, app-name, assertj, data, data-jpa, hamcrest, http-client, jackson-databind, java, java-application, jdbc-hikari, junit, liquibase, logback, management, maven, mockito, netty-server, postgres, reactor, reactor-http-client, readme, security-annotations, security-jwt, shade, testcontainers, yaml ]

@@ -1,0 +1,37 @@
+openapi: 3.0.3
+info:
+  title: Boa Saúde - Sistema de Gestão Integral da Saúde do Associado
+  description: Módulo de Ciência de Dados
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+  - url: "/receiver/api"
+paths:
+  /worksheets/uploads:
+    post:
+      tags:
+        - Upload de Arquivos
+      summary: Fazer upload de arquivos
+      description: Retorna OK em caso de sucesso
+      operationId: upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+        required: true
+      responses:
+        "202":
+          description: Requisição aceita
+          content:
+            text/plain:
+        "422":
+          description: Requisição não pôde ser processada
+        "500":
+          description: Erro interno no servidor

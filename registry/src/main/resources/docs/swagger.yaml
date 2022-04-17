@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: Boa Saúde - Sistema de Gestão Integral da Saúde do Associado
+  description: Módulo de Informações Cadastrais
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+  - url: '/registry/api'
+paths:
+  /medicalRecords:
+    post:
+      tags:
+        - Prontuário Médico
+      summary: Criar novo Prontuário Médico
+      description: Retorna Prontuário Médico criado
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMedicalRecord'
+        required: true
+      responses:
+        "201":
+          description: Recurso criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalRecordView'
+        "400":
+          description: Requisição inválida
+        "409":
+          description: Conflito com o estado atual do recurso
+        "500":
+          description: Erro interno no servidor
+    get:
+      tags:
+        - Prontuário Médico
+      summary: Listar Prontuários Médicos
+      description: Retorna lista com todos os Prontuários Médicos
+      operationId: findAll
+      responses:
+        "200":
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MedicalRecordView'
+        "500":
+          description: Erro interno no servidor
+components:
+  schemas:
+    CreateMedicalRecord:
+      required:
+        - associateTaxpayerId
+        - attendanceDate
+        - attendanceType
+        - bloodPressure
+        - heartRate
+        - imc
+        - medicalHistory
+        - professionalName
+        - professionalRegistry
+        - recordId
+        - temperature
+        - weight
+      type: object
+      properties:
+        recordId:
+          type: string
+        associateTaxpayerId:
+          type: string
+        attendanceDate:
+          type: string
+          format: date-time
+        attendanceType:
+          type: string
+        professionalName:
+          type: string
+        professionalRegistry:
+          type: string
+        medicalHistory:
+          type: string
+        weight:
+          type: number
+          format: double
+        imc:
+          type: number
+          format: double
+        heartRate:
+          type: number
+          format: double
+        bloodPressure:
+          type: number
+          format: double
+        temperature:
+          type: integer
+          format: int32
+    MedicalRecordView:
+      required:
+        - associateTaxpayerId
+        - createdAt
+        - id
+        - recordId
+      type: object
+      properties:
+        id:
+          type: string
+        recordId:
+          type: string
+        associateTaxpayerId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time

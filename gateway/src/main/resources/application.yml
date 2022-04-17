@@ -1,0 +1,57 @@
+micronaut:
+  application:
+    name: gateway
+  executors:
+    io:
+      type: fixed
+      n-threads: 5
+  http:
+    services:
+      identity:
+        url: ${IDENTITY_SRV_URL}
+        path: /identity
+      receiver:
+        url: ${RECEIVER_SRV_URL}
+        path: /receiver
+      registry:
+        url: ${REGISTRY_SRV_URL}
+        path: /registry
+  security:
+    endpoints:
+      login:
+        enabled: false
+      logout:
+        enabled: false
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator:
+              secret: ${JWT_SIGNATURE_SECRET}
+      propagation:
+        enabled: true
+        header:
+          enabled: true
+          header-name: Authorization
+          prefix: "Bearer "
+        service-id-regex: "identity|receiver|registry"
+  server:
+    context-path: /gateway/api
+    port: ${SERVER_PORT}
+netty:
+  default:
+    allocator:
+      max-order: 3
+jackson:
+  bean-introspection-module: true
+  property-naming-strategy: LOWER_CAMEL_CASE
+  date-format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+  time-zone: "America/Sao_Paulo"
+  locale: pt_BR
+  deserialization:
+    failOnNumbersForEnums: true
+    failOnUnknownProperties: true
+  serialization:
+    writeDatesAsTimestamps: false
+    closeCloseable: true
+    indentOutput: true

@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: Boa Saúde - Sistema de Gestão Integral da Saúde do Associado
+  description: Serviço de Identidade e Autenticação
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+  - url: "/identity/api"
+paths:
+  /token:
+    post:
+      tags:
+        - Autenticação
+      summary: Gerar token JWT
+      description: Retorna token de acesso
+      operationId: token
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthenticateUser'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateUser'
+        required: true
+      responses:
+        "200":
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAuthenticatedView'
+        "401":
+          description: Não autorizado
+        "500":
+          description: Erro interno no servidor
+  /users:
+    post:
+      tags:
+        - Usuário
+      summary: Criar novo Usuário
+      description: Retorna Usuário criado
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+        required: true
+      responses:
+        "201":
+          description: Recurso criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserView'
+        "400":
+          description: Requisição inválida
+        "409":
+          description: Conflito com o estado atual do recurso
+        "422":
+          description: Requisição não pôde ser processada
+        "500":
+          description: Erro interno no servidor
+components:
+  schemas:
+    AuthenticateUser:
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    CreateUser:
+      required:
+        - email
+        - profile
+        - secret
+      type: object
+      properties:
+        email:
+          type: string
+        secret:
+          type: string
+        profile:
+          type: string
+    Status:
+      type: string
+      enum:
+        - Active
+        - Inactive
+    ProfileView:
+      required:
+        - authorities
+        - name
+        - status
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status'
+        authorities:
+          type: array
+          items:
+            type: string
+    UserView:
+      required:
+        - email
+        - id
+        - name
+        - profile
+        - secret
+        - status
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        name:
+          type: string
+        secret:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status'
+        profile:
+          $ref: '#/components/schemas/ProfileView'
+    UserAuthenticatedView:
+      required:
+        - accessToken
+        - expiresIn
+        - roles
+        - tokenType
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+        accessToken:
+          type: string
+        tokenType:
+          type: string
+        expiresIn:
+          type: integer
+          format: int32

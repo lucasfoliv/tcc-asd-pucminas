@@ -1,0 +1,104 @@
+{
+  "changeSet": [
+    {
+      "collectionName": "medicalRecords",
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": [
+            "recordId",
+            "associateTaxpayerId",
+            "attendanceDate",
+            "attendanceType",
+            "professionalName",
+            "professionalRegistry",
+            "medicalHistory",
+            "weight",
+            "imc",
+            "heartRate",
+            "bloodPressure",
+            "temperature",
+            "createdAt",
+            "updatedAt"
+          ],
+          "properties": {
+            "recordId": {
+              "bsonType": "string",
+              "description": "The recordId field must be a valid non-empty string and is required."
+            },
+            "associateTaxpayerId": {
+              "bsonType": "string",
+              "description": "The 'associateTaxpayerId' field must be a valid non-empty string and is required.",
+              "maxLength": 14,
+              "minLength": 14
+            },
+            "attendanceDate": {
+              "bsonType": "date",
+              "description": "The 'attendanceDate' field must be a valid date and is required."
+            },
+            "attendanceType": {
+              "bsonType": "string",
+              "description": "The 'attendanceType' field must be a valid non-empty string and is required."
+            },
+            "professionalName": {
+              "bsonType": "string",
+              "description": "The 'professionalName' field must be a valid non-empty string and is required."
+            },
+            "professionalRegistry": {
+              "bsonType": "string",
+              "description": "The 'professionalRegistry' field must be a valid non-empty string and is required."
+            },
+            "medicalHistory": {
+              "bsonType": "string",
+              "description": "The 'medicalHistory' field must be a valid non-empty string and is required."
+            },
+            "weight": {
+              "bsonType": "double",
+              "description": "The 'weight' field must be a valid non-empty string and is required."
+            },
+            "imc": {
+              "bsonType": "double",
+              "description": "The 'imc' field must be a valid non-empty string and is required."
+            },
+            "heartRate": {
+              "bsonType": "double",
+              "description": "The 'heartRate' field must be a valid non-empty string and is required."
+            },
+            "bloodPressure": {
+              "bsonType": "double",
+              "description": "The 'bloodPressure' field must be a valid non-empty string and is required."
+            },
+            "temperature": {
+              "bsonType": "int",
+              "description": "The 'temperature' field must be a valid non-empty string and is required."
+            },
+            "createdAt": {
+              "bsonType": "date",
+              "description": "The 'createdAt' field must be a valid date and is required."
+            },
+            "updatedAt": {
+              "bsonType": "date",
+              "description": "The 'updatedAt' field must be a valid date and is required."
+            }
+          }
+        }
+      },
+      "indexes": [
+        {
+          "field": "recordId",
+          "type": 1
+        },
+        {
+          "field": "associateTaxpayerId",
+          "type": 1
+        },
+        {
+          "field": "professionalRegistry",
+          "type": 1
+        }
+      ],
+      "validationAction": "ERROR",
+      "validationLevel": "STRICT"
+    }
+  ]
+}

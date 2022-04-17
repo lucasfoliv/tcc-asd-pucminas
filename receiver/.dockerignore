@@ -1,0 +1,7 @@
+*
+
+# Entrypoint Files
+!scripts/docker-entrypoint.sh
+
+# Executable Files
+!/target/receiver-*.jar

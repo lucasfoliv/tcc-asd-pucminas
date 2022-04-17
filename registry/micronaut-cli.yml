@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: br.pucminas.gisa.mic.registry
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [ annotation-api, app-name, assertj, data-mongodb, hamcrest, http-client, jackson-databind, java, java-application, junit, logback, management, maven, mockito, mongo-sync, netty-server, reactor, reactor-http-client, readme, shade, testcontainers, yaml ]

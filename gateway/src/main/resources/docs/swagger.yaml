@@ -1,0 +1,191 @@
+openapi: 3.0.3
+info:
+  title: Boa Saúde - Sistema de Gestão Integral da Saúde do Associado
+  description: Api Gateway
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+  - url: '/gateway/api'
+paths:
+  /identities/auth:
+    post:
+      tags:
+        - Autenticação
+      summary: Gerar token JWT
+      description: Retorna token de acesso
+      operationId: token
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthenticateUser'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateUser'
+        required: true
+      responses:
+        "200":
+          description: Operação bem sucedida
+        "500":
+          description: Erro interno no servidor
+  /identities:
+    post:
+      tags:
+        - Usuário
+      summary: Criar novo usuário
+      description: Retorna dados do usuário criado
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+        required: true
+      responses:
+        "200":
+          description: Operação bem sucedida
+        "500":
+          description: Erro interno no servidor
+    get:
+      tags:
+        - Usuário
+      summary: Listar Usuários
+      description: Retorna lista de usuários do sistema
+      operationId: findAll
+      responses:
+        "200":
+          description: Operação bem sucedida
+        "401":
+          description: Não autorizado
+        "500":
+          description: Erro interno no servidor
+  /receivers/uploads:
+    post:
+      tags:
+        - Upload de Arquivos
+      summary: Fazer upload de arquivos
+      description: Retorna OK em caso de sucesso
+      operationId: upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+        required: true
+      responses:
+        "202":
+          description: Requisição aceita
+        "422":
+          description: Requisição não pôde ser processada
+        "500":
+          description: Erro interno no servidor
+  /registry/medicalRecords:
+    post:
+      tags:
+        - Prontuário Médico
+      summary: Criar novo Prontuário Médico
+      description: Retorna Prontuário Médico criado
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMedicalRecord'
+        required: true
+      responses:
+        "201":
+          description: Recurso criado com sucesso
+        "400":
+          description: Requisição inválida
+        "409":
+          description: Conflito com o estado atual do recurso
+        "500":
+          description: Erro interno no servidor
+    get:
+      tags:
+        - Prontuário Médico
+      summary: Listar Prontuários Médicos
+      description: Retorna lista com todos os Prontuários Médicos
+      operationId: findAll
+      responses:
+        "200":
+          description: Operação bem sucedida
+        "500":
+          description: Erro interno no servidor
+components:
+  schemas:
+    AuthenticateUser:
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    CreateUser:
+      required:
+        - email
+        - profile
+        - secret
+      type: object
+      properties:
+        email:
+          type: string
+        secret:
+          type: string
+        profile:
+          type: string
+    CreateMedicalRecord:
+      required:
+        - associateTaxpayerId
+        - attendanceDate
+        - attendanceType
+        - bloodPressure
+        - heartRate
+        - imc
+        - medicalHistory
+        - professionalName
+        - professionalRegistry
+        - recordId
+        - temperature
+        - weight
+      type: object
+      properties:
+        recordId:
+          type: string
+        associateTaxpayerId:
+          type: string
+        attendanceDate:
+          type: string
+          format: date-time
+        attendanceType:
+          type: string
+        professionalName:
+          type: string
+        professionalRegistry:
+          type: string
+        medicalHistory:
+          type: string
+        weight:
+          type: number
+          format: double
+        imc:
+          type: number
+          format: double
+        heartRate:
+          type: number
+          format: double
+        bloodPressure:
+          type: number
+          format: double
+        temperature:
+          type: integer
+          format: int32

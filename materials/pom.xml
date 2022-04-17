@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>br.pucminas.gisa</groupId>
+  <artifactId>materials</artifactId>
+  <version>0.0.1-RELEASE</version>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>io.micronaut</groupId>
+    <artifactId>micronaut-parent</artifactId>
+    <version>3.4.0</version>
+  </parent>
+
+  <name>${project.artifactId}</name>
+  <description>Gisa Bill of Materials</description>
+
+  <properties>
+    <packaging>jar</packaging>
+    <jdk.version>17</jdk.version>
+    <release.version>17</release.version>
+
+    <!--Dependencies-->
+    <commons.collections.version>4.4</commons.collections.version>
+    <commons.lang.version>3.12.0</commons.lang.version>
+    <commons.logging.version>1.2</commons.logging.version>
+    <jakarta.persistence.api.version>2.2.3</jakarta.persistence.api.version>
+    <jakarta.validation.api.version>3.0.0</jakarta.validation.api.version>
+    <javax.inject.version>1</javax.inject.version>
+    <jackson.version>2.13.2</jackson.version>
+    <liquibase.groovy.version>3.0.2</liquibase.groovy.version>
+    <mapstruct.version>1.4.2.Final</mapstruct.version>
+    <micronaut.version>3.4.0</micronaut.version>
+    <micronaut.data.version>3.3.0</micronaut.data.version>
+    <micronaut.serialization.version>1.0.0</micronaut.serialization.version>
+    <nimbus.jose.jwt.version>9.21</nimbus.jose.jwt.version>
+    <slf4j.version>1.7.36</slf4j.version>
+    <spring.security.version>5.6.2</spring.security.version>
+    <assertj.version>3.22.0</assertj.version>
+    <flapdoodle.mongo.version>3.2.6</flapdoodle.mongo.version>
+    <hamcrest.version>2.2</hamcrest.version>
+    <junit5.version>5.8.2</junit5.version>
+    <mockito.version>4.3.1</mockito.version>
+
+    <!--Plugins-->
+    <maven.compiler.plugin.version>3.10.0</maven.compiler.plugin.version>
+  </properties>
+
+  <scm>
+    <url/>
+    <connection/>
+    <developerConnection/>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>lucasfoliv</id>
+      <name>Lucas Oliveira</name>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${commons.collections.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons.lang.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>${commons.logging.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>${jakarta.persistence.api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.validation</groupId>
+        <artifactId>jakarta.validation-api</artifactId>
+        <version>${jakarta.validation.api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.inject</groupId>
+        <artifactId>javax.inject</artifactId>
+        <version>${javax.inject.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-groovy-dsl</artifactId>
+        <version>${liquibase.groovy.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${mapstruct.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.nimbusds</groupId>
+        <artifactId>nimbus-jose-jwt</artifactId>
+        <version>${nimbus.jose.jwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jul-to-slf4j</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-crypto</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.flapdoodle.embed</groupId>
+        <artifactId>de.flapdoodle.embed.mongo</artifactId>
+        <version>${flapdoodle.mongo.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>

@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: br.pucminas.gisa.mcd.receiver
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [ annotation-api, app-name, assertj, hamcrest, http-client, jackson-databind, java, java-application, junit, kafka, logback, management, maven, mockito, netty-server, reactor, reactor-http-client, readme, shade, testcontainers, yaml ]

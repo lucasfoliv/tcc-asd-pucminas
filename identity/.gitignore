@@ -1,0 +1,68 @@
+### Gradle ###
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+### IntelliJ ###
+.idea/
+*.iml
+*.ipr
+*.iws
+
+### Eclipse/STS ###
+.settings/
+bin/
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+nb-configuration.xml
+
+### Vim Files ###
+*.swp
+*.swo
+
+### VS Code ###
+.vscode/
+
+### Build Output Directories ###
+build/
+out/
+
+### Compiled Class Files ###
+*.class
+
+### Local Environment Files ###
+.env
+
+### OS Specific Files and Folders ###
+.DS_Store
+Thumbs.db
+
+### Package Files ###
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+### Virtual Machine crash logs ###
+hs_err_pid*

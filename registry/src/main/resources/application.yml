@@ -1,0 +1,56 @@
+micronaut:
+  application:
+    name: registry
+  data:
+    mongo:
+      create-collections: false
+  executors:
+    io:
+      type: fixed
+      n-threads: 5
+  http:
+    services:
+      middleware:
+        url: ${MIDDLEWARE_URL}
+        path: /integrations/api
+  security:
+    endpoints:
+      login:
+        enabled: false
+      logout:
+        enabled: false
+    token:
+      jwt:
+        signatures:
+          secret:
+            validation:
+              secret: ${JWT_SIGNATURE_SECRET}
+  server:
+    context-path: /registry/api
+    port: ${SERVER_PORT}
+netty:
+  default:
+    allocator:
+      max-order: 3
+jackson:
+  bean-introspection-module: true
+  property-naming-strategy: LOWER_CAMEL_CASE
+  date-format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+  time-zone: "America/Sao_Paulo"
+  locale: pt_BR
+  deserialization:
+    failOnNumbersForEnums: true
+    failOnUnknownProperties: true
+  serialization:
+    writeDatesAsTimestamps: false
+    closeCloseable: true
+    indentOutput: true
+mongodb:
+  uri: mongodb://${DB_USER}:${DB_SECRET}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=${DB_AUTH}
+  uuid-representation: standard
+app:
+  datasource:
+    database: ${DB_NAME}
+    collection: medicalRecords
+  migration:
+    changelog: classpath:db/changelog.json

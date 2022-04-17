@@ -1,0 +1,66 @@
+version: "3.9"
+
+networks:
+  gisa:
+    name: gisa
+    external: true
+
+volumes:
+  postgres_data:
+    name: identity-volume
+
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: miadb
+    restart: unless-stopped
+    ports:
+      - "5434:5432"
+    networks:
+      gisa:
+        ipv4_address: 172.1.0.5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/postgres:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_USER: ${DB_USER}
+      DB_SECRET: ${DB_SECRET}
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-d", "${DB_NAME}", "-U", "${DB_USER}" ]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    logging:
+      driver: json-file
+  identity:
+    image: identity:latest
+    container_name: identity
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    networks:
+      gisa:
+        ipv4_address: 172.1.0.6
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_USER: ${DB_USER}
+      DB_SECRET: ${DB_SECRET}
+      JWT_SIGNATURE_SECRET: ${JWT_SIGNATURE_SECRET}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_SECRET: ${ADMIN_SECRET}
+      SERVER_PORT: ${SERVER_PORT}
+      LOG_LEVEL: ${LOG_LEVEL}
+    logging:
+      driver: json-file
+    depends_on:
+      postgres:
+        condition: service_healthy
